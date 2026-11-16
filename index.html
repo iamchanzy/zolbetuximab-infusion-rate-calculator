@@ -1,101 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zolbetuximab Infusion Rate Calculator</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Oncology infusion tool</p>
-          <h1>Zolbetuximab Infusion Rate Calculator</h1>
-        </div>
-      </header>
-
-      <section class="card input-card">
-        <h2>Patient & infusion details</h2>
-        <div class="form-grid">
-          <label>
-            Patient weight (kg)
-            <input id="weight" type="number" min="0" step="0.1" value="70" />
-          </label>
-
-          <label>
-            Dose (mg/kg)
-            <input id="dose" type="number" min="0" step="0.1" value="8" />
-          </label>
-
-          <label>
-            Concentration (mg/mL)
-            <input id="concentration" type="number" min="0.1" step="0.1" value="20" />
-          </label>
-
-          <label>
-            Infusion duration (minutes)
-            <input id="duration" type="number" min="1" step="1" value="240" />
-          </label>
-
-          <label>
-            Bag volume (mL) <span class="muted">optional</span>
-            <input id="bagVolume" type="number" min="0" step="1" value="0" placeholder="0" />
-          </label>
-        </div>
-
-        <div class="actions">
-          <button id="calculateBtn" type="button">Calculate</button>
-          <button id="resetBtn" type="button" class="secondary">Reset</button>
-        </div>
-      </section>
-
-      <section class="card results-card">
-        <h2>Calculated infusion</h2>
-
-        <div class="result-grid">
-          <div class="result-box">
-            <span class="label">Total dose</span>
-            <strong id="totalDose">0 mg</strong>
-          </div>
-
-          <div class="result-box">
-            <span class="label">Volume required</span>
-            <strong id="volumeRequired">0 mL</strong>
-          </div>
-
-          <div class="result-box">
-            <span class="label">Rate</span>
-            <strong id="rateMlHr">0 mL/hr</strong>
-          </div>
-
-          <div class="result-box">
-            <span class="label">Rate</span>
-            <strong id="rateMlMin">0 mL/min</strong>
-          </div>
-
-          <div class="result-box">
-            <span class="label">Drops</span>
-            <strong id="dropRate">0 gtt/min</strong>
-          </div>
-
-          <div class="result-box warning-box" id="warningBox">
-            <span class="label">Safety note</span>
-            <strong id="warningText">No warning</strong>
-          </div>
-        </div>
-
-        <div class="formula-box">
-          <h3>Formula</h3>
-          <p>
-            Total dose = weight × dose per kg<br />
-            Volume required = total dose ÷ concentration<br />
-            Infusion rate = volume ÷ time
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <script src="script.js"></script>
-  </body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zolbetuximab Infusion Rate Calculator</title><style>:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#183047;background:#f2f6fa}*{box-sizing:border-box}body{margin:0}.wrap{max-width:760px;margin:auto;padding:18px 14px 45px}header{background:#123d5c;color:white;padding:22px;border-radius:16px}h1{font-size:1.4rem;margin:0 0 6px}h2{font-size:1.06rem;margin:0 0 12px}.muted{color:#536a7d;font-size:.88rem}.panel{background:white;border:1px solid #d9e3ec;border-radius:15px;padding:18px;margin-top:14px}.group{margin:16px 0}.group>label,.group>strong{display:block;font-weight:700;margin-bottom:8px}.choices{display:grid;gap:8px}.choices.two{grid-template-columns:repeat(2,minmax(0,1fr))}.choice{display:flex;align-items:center;gap:8px;padding:12px;border:1.5px solid #cbd9e5;border-radius:10px;cursor:pointer;font-size:.94rem}.choice:has(input:checked){border-color:#0879b7;background:#e8f5fc}.choice input{accent-color:#0879b7;width:18px;height:18px;flex:none}input[type=number]{width:100%;padding:13px;border:1.5px solid #9fb4c4;border-radius:10px;font-size:1.1rem}.note{background:#fff7e4;border-left:4px solid #d28b18;padding:12px;border-radius:6px;font-size:.86rem;margin-top:12px}.summary{background:#eaf4fa;padding:12px;border-radius:9px;font-size:.91rem}table{width:100%;border-collapse:collapse;font-size:.91rem}th,td{padding:12px 7px;border-bottom:1px solid #e0e7ee;text-align:left}th{font-size:.78rem;color:#526a7b}td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}td:last-child{font-weight:750;color:#075d8e;font-size:1.08rem}.button{border:0;background:#076c9f;color:white;border-radius:10px;padding:13px 18px;font-size:1rem;font-weight:700;cursor:pointer;width:100%}.button:disabled{opacity:.4}.small{font-size:.82rem;color:#536a7d}ul{padding-left:22px;line-height:1.55}.hidden{display:none}.error{color:#a32727;font-weight:650}footer{font-size:.78rem;color:#64798b;margin-top:20px}@media(max-width:410px){.choices.two{grid-template-columns:1fr}th,td{padding:10px 4px;font-size:.82rem}}.management-scroll{overflow-x:auto}.management-table{table-layout:fixed;min-width:0}.management-table th,.management-table td{width:50%;vertical-align:top;text-align:left!important;white-space:pre-line;overflow-wrap:anywhere;font-size:.88rem;font-weight:400;color:#183047;padding:12px 10px;line-height:1.55}.management-table th{font-weight:700;background:#eaf4fa;color:#183047}.management-notes{font-size:.87rem;line-height:1.55;margin-top:12px}.management-notes p{margin:8px 0}@media(max-width:410px){.management-table th,.management-table td{font-size:.79rem;padding:10px 6px}}</style></head><body><main class="wrap"><header><h1>Zolbetuximab Infusion Rate Calculator</h1><div>Zolbetuximab in combination with FOLFOX (Q2W) or XELOX (Q3W)</div></header><section class="panel"><h2>Patient & infusion details</h2><div class="group"><strong>1. Regimen</strong><div class="choices two"><label class="choice"><input type="radio" name="regimen" value="q2w" checked> Zolbetuximab + FOLFOX (Q2W)</label><label class="choice"><input type="radio" name="regimen" value="q3w"> Zolbetuximab + XELOX (Q3W)</label></div></div><div class="group"><strong>2. Infusion cycle</strong><div class="choices two"><label class="choice"><input type="radio" name="cycle" value="first" checked> First infusion (C1)</label><label class="choice"><input type="radio" name="cycle" value="later"> Subsequent (C2 onwards)</label></div></div><div class="group hidden" id="toleranceGroup"><strong>3. Previous infusion tolerability</strong><div class="choices"><label class="choice"><input type="radio" name="tolerance" value="usual" checked> Tolerated, nausea only, or one vomiting episode</label><label class="choice"><input type="radio" name="tolerance" value="repeated"> Repeated vomiting</label></div></div><div class="group"><label for="bsa">Patient BSA (m²)</label><input id="bsa" type="number" min="0.01" max="3" step="0.01" inputmode="decimal" placeholder="e.g. 1.70"></div><div id="error" class="error" role="alert"></div></section><section class="panel"><h2>Infusion rate schedule</h2><div id="summary" class="summary">Enter patient BSA to calculate infusion rates. The rate table will appear below.</div><div style="overflow-x:auto"><table><thead><tr><th>Step</th><th>Duration</th><th>Infusion rate (mL/hr)</th></tr></thead><tbody id="rates"></tbody></table></div></section><section class="panel"><h2>Management of nausea and vomiting</h2><p class="small" id="managementContext"></p><div class="management-scroll"><table class="management-table"><thead><tr><th>If nausea occurs but no vomiting:</th><th>If vomiting occurs:</th></tr></thead><tbody id="managementRows"></tbody></table></div><div id="managementNotes" class="management-notes"></div></section><section class="panel"><h2>Documentation</h2><button class="button" id="copy" disabled>Copy rate table + management</button><p class="small">Copies both tables and management notes. Rich table formatting is preserved when supported by the destination app. No patient identifiers are requested or stored.</p></section><footer>Calculator made by NUH Oncology Pharmacy | Version 1 — 16 Oct 2026</footer></main><script>const paths={q2w:{first:[100,200,300,400],usual:[50,100,150,200],repeated:[25,37.5,50,100,150,200]},q3w:{first:[100,200,300,400],usual:[75,150,225,300],repeated:[37.5,56.25,75,150,225,300]}};const nauseaFirst=["continue infusion \nOR stop for 30-60min, restart at same rate  ","continue infusion \nOR slow infusion (half-rate) without stopping\nOR stop for 30-60min, restart at same rate"];
+const nauseaLater="continue infusion \nOR slow infusion (half-rate) without stopping\nOR stop for 30-60min, restart at same rate or half rate";
+const vomiting="stop infusion for 30-60 min and, if symptoms improve, restart at a half rate\nIf vomiting persist, further reduce rate by 50%.";
+const rescue="If symptomatic, consider giving rescue anti-emetics (IV metoclopramide; PO/IV lorazepam etc) +/- PPI";
+const escalation="If patients tolerate the slower rate, increase infusion rate by increments of 25% back to 100%.";
+const documentation="To document number of episodes of CINV and maximum rate tolerated by patient in EPIC.";
+function renderManagement(cycle){const first=cycle==='first';$('managementContext').textContent=first?'First infusion (C1)':'Subsequent infusion (C2 onwards)';const rows=first?[[nauseaFirst[0],vomiting],[nauseaFirst[1],'']]:[[nauseaLater,vomiting]];$('managementRows').replaceChildren(...rows.map(([n,v])=>{const tr=document.createElement('tr');for(const value of [n,v]){const td=document.createElement('td');td.textContent=value;tr.append(td)}return tr}));$('managementNotes').replaceChildren(...[rescue,escalation,...(first?[documentation]:[])].map(value=>{const p=document.createElement('p');p.textContent=value;return p}));}
+const pick=n=>document.querySelector('input[name="'+n+'"]:checked').value;const $=id=>document.getElementById(id);let current='';function render(){const regimen=pick('regimen'),cycle=pick('cycle'),tol=pick('tolerance'),path=cycle==='first'?'first':tol,bsa=Number($('bsa').value),valid=$('bsa').value.trim()!==''&&Number.isFinite(bsa)&&bsa>0&&bsa<=3; $('toleranceGroup').classList.toggle('hidden',cycle==='first');renderManagement(cycle);$('error').textContent=$('bsa').value&&!valid?'Enter a BSA greater than 0 and no more than 3 m².':'';const rates=paths[regimen][path];$('summary').textContent=(regimen==='q2w'?'Zolbetuximab + FOLFOX (Q2W)':'Zolbetuximab + XELOX (Q3W)')+' · '+(cycle==='first'?'First infusion (C1)':('Subsequent (C2 onwards) · '+(tol==='usual'?'Tolerated / nausea / one vomiting episode':'Repeated vomiting')))+(valid?' · BSA '+bsa+' m²':' · Enter BSA to calculate');$('rates').innerHTML=valid?rates.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+(i===rates.length-1?'Until completion':cycle==='first'?'60 min':'30–60 min')+'</td><td>'+Math.round(r*bsa/2).toString()+'</td></tr>').join(''):'<tr><td colspan="3" class="small">Enter BSA above to display infusion rates in mL/hr.</td></tr>';$('copy').disabled=!valid;current=valid?$('summary').textContent+'\nConcentration: 2 mg/mL (verify)\n'+rates.map((r,i)=>'Step '+(i+1)+': '+Math.round(r*bsa/2).toString()+' mL/hr; '+(i===rates.length-1?'until completion':cycle==='first'?'60 min':'30–60 min')).join('\n')+'\nClinical verification required.':''}document.querySelectorAll('input').forEach(e=>e.addEventListener('input',render));$('copy').addEventListener('click',async()=>{
+ const summary=$('summary').textContent;
+ const rateTable=document.querySelector('#rates').closest('table');
+ const managementTable=$('managementRows').closest('table');
+ const notes=[...$('managementNotes').querySelectorAll('p')].map(p=>p.textContent);
+ const tableText=table=>[...table.querySelectorAll('tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(c=>c.textContent.trim().replace(/\s*\n\s*/g,'; ')).join('\t')).join('\n');
+ const plain=summary+'\n\nINFUSION RATE SCHEDULE\n'+tableText(rateTable)+'\n\nMANAGEMENT OF NAUSEA AND VOMITING — '+$('managementContext').textContent+'\n'+tableText(managementTable)+'\n\n'+notes.join('\n');
+ const escapeHtml=str=>str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+ const style='border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:12px';
+ const tableHtml=table=>'<table style="'+style+'" border="1" cellpadding="7">'+[...table.querySelectorAll('tr')].map(tr=>'<tr>'+[...tr.querySelectorAll('th,td')].map(cell=>'<'+cell.tagName.toLowerCase()+' style="border:1px solid #999;text-align:left;vertical-align:top;white-space:pre-line">'+escapeHtml(cell.textContent).replace(/\n/g,'<br>')+'</'+cell.tagName.toLowerCase()+'>').join('')+'</tr>').join('')+'</table>';
+ const html='<div><p><strong>'+escapeHtml(summary)+'</strong></p><h3>Infusion rate schedule</h3>'+tableHtml(rateTable)+'<h3>Management of nausea and vomiting — '+escapeHtml($('managementContext').textContent)+'</h3>'+tableHtml(managementTable)+notes.map(n=>'<p>'+escapeHtml(n)+'</p>').join('')+'</div>';
+ let copied=false;
+ try {if(navigator.clipboard&&window.ClipboardItem){await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]);copied=true;}}catch(e){}
+ if(!copied){try{await navigator.clipboard.writeText(plain);copied=true;}catch(e){const a=document.createElement('textarea');a.value=plain;document.body.append(a);a.select();copied=document.execCommand('copy');a.remove();}}
+ if(copied){$('copy').textContent='Copied rate table + management!';setTimeout(()=>$('copy').textContent='Copy rate table + management',2200)}else{alert('Unable to copy automatically. Please select and copy the tables manually.');}
+});render();</script></body></html>
